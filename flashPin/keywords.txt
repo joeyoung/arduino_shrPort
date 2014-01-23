@@ -1,0 +1,34 @@
+###########################################
+# Syntax Coloring Map For flashPin
+###########################################
+
+###########################################
+# Datatypes (KEYWORD1)
+###########################################
+
+flashPin	KEYWORD1
+
+
+###########################################
+# Keypad_I2C Library constants (LITERAL1)
+###########################################
+
+
+
+###########################################
+# Methods and Functions (KEYWORD2)
+###########################################
+
+flash	KEYWORD2
+flashOff	KEYWORD2
+fp_set	KEYWORD2
+
+
+###########################################
+# objects created in the example sketches.
+###########################################
+
+pin13	KEYWORD3
+pin12	KEYWORD3
+pin11	KEYWORD3
+

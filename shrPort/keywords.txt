@@ -1,0 +1,32 @@
+###########################################
+# Syntax Coloring Map For shrPort
+###########################################
+
+###########################################
+# Datatypes (KEYWORD1)
+###########################################
+
+shrPort	KEYWORD1
+
+
+###########################################
+# Methods and Functions (KEYWORD2)
+###########################################
+
+pin_mode	KEYWORD2
+pin_write	KEYWORD2
+pin_read	KEYWORD2
+pinState_set	KEYWORD2
+port_write	KEYWORD2
+
+
+###########################################
+#  objects created in the example sketches.
+###########################################
+
+port0	KEYWORD3
+port1	KEYWORD3
+port2	KEYWORD3
+port3	KEYWORD3
+
+

@@ -1,0 +1,41 @@
+###########################################
+# Syntax Coloring Map For flashPin_shr
+###########################################
+
+###########################################
+# Datatypes (KEYWORD1)
+###########################################
+
+flashPin_shr	KEYWORD1
+
+
+###########################################
+# Keypad_I2C Library constants (LITERAL1)
+###########################################
+
+PCF8574	LITERAL1
+PCF8575	LITERAL1
+
+
+###########################################
+# Methods and Functions (KEYWORD2)
+###########################################
+
+
+
+###########################################
+# objects created in the example sketches.
+###########################################
+
+bit15	KEYWORD3
+bit14	KEYWORD3
+bit13	KEYWORD3
+
+bit7	KEYWORD3
+bit6	KEYWORD3
+bit5	KEYWORD3
+
+bit07	KEYWORD3
+bit06	KEYWORD3
+bit05	KEYWORD3
+
