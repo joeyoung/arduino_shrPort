@@ -1,0 +1,15 @@
+###########################################
+# Syntax Coloring Map For LiquidCrystal_exp
+###########################################
+
+###########################################
+# Datatypes (KEYWORD1)
+###########################################
+
+LiquidCrystal_exp	KEYWORD1
+
+###########################################
+# Methods and Functions (KEYWORD2)
+###########################################
+# all definitions in LiquidCrystal_I2C
+# are included already

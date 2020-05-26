@@ -1,0 +1,15 @@
+###########################################
+# Syntax Coloring Map For flashPin_exp
+###########################################
+
+###########################################
+# Datatypes (KEYWORD1)
+###########################################
+
+flashPin_exp	KEYWORD1
+
+###########################################
+# Methods and Functions (KEYWORD2)
+###########################################
+# all definitions in flashPin
+# are included already
