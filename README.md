@@ -46,20 +46,28 @@ possibility of different objects interfering with one another.
 Excerpts from an example program illustrate the use of these libraries. The example
 system has a Keypad, 16 X 2 LCD display and flashPin to pulse the display backlight.
 
-[code]
 
- #include <shrMC17.h> 
+ #include <shrMC17.h>
+ 
  #include <Keypad_exp.h>
+ 
  #include <LiquidCrystal_exp.h>
+ 
  #include <flashPin_exp.h>
+ 
  #include <Wire.h>
+ 
  #define I2CADDR 0x24    //MCP23017
+ 
 
  shrMC17 prt( I2CADDR, MCP23017, jwire );
+ 
  Keypad_exp kpd( &prt, makeKeymap(keys), rowPins, colPins, ROWS, COLS); //Keypad initializers
- flashPin_exp pin15( &prt, 7, LOW, 250);                    //flashPin                
+ 
+ flashPin_exp pin15( &prt, 7, LOW, 250);                    //flashPin 
+ 
  LiquidCrystal_exp  lcd( &prt, 16, 2 );  //LiquidCrystal_exp
+ 
 
-[\code]
 
 
