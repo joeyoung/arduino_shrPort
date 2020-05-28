@@ -1,0 +1,25 @@
+Note regarding HelloKeypad_exp sketch
+
+May 27, 2020 G. D. (Joe) Young <jyoung@islandnet.com>
+
+The reason this example is included is to show the memory cost for having the
+I2C i/o separated out from the base library - in this case as compared with
+Keypad_I2C.
+
+The comments in the sketch show that Keypad_I2C memory footprint is 5164 bytes
+and when the same sketch with Keypad_exp and shrPort it's 5386 bytes. 
+Consequently, the original motivation for having the I2C i/o incorporated
+into separate libraries for each kind of i/o expander - keep memory footprint
+at minimum rather than have one general-purpose function including all - was
+sound. Further, it's clear that for the case where only one kind of base
+object is to be extended to I2C, then the library_I2C version is to be
+preferred.
+
+Nevertheless, there are two advantages realized by the shrPort with 
+library_exp versions:
+ - The shrPort objects used alone make the arduino pinMode, digitalRead, and
+   digitalWrite available to the I/O expander IC pins, along with other port
+   functions.
+ - Only one set of i/o operations have control of the port expander state
+   information - pin values, port direction settings - which should minimize
+   oportunity for inadvert interaction between sharing users.

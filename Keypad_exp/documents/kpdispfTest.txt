@@ -1,0 +1,24 @@
+Notes regarding the example sketches kpdispfTestXX
+
+May 27/20 G. D. (Joe) Young <jyoung@islandnet.com>
+
+These sketches demonstrate the use of the shrPort libraries to permit extending
+the I/O from existing libraries to use the I2C port(s).
+
+kpdispfTest5 is the most comprehensive since it uses two of the shrPort libraries
+and runs two keypads, an LCD 16 X 2 character display, and flashPin to signal a
+full line on the display. kpdispfTest5alt is to be used with the MKR ZERO because
+it also configures an alternate I2C port on pins 0 and 1, and demonstrates the
+use of the optional wire reference parameter in the trailing argument of the
+shrPort constructors.
+
+The original kpdispfTest (no suffixes!) constructs one large object, kpdf,
+that includes Keypad, LiquidCrystal_I2C, and flashPin. It is included here
+as documentation, it's probabaly not useful as is. It is rather cumbersome
+to set up and not too flexible to use, but nevertheless uses only one set of
+I/O expander port functions. Subsequent versions explored comparisons with
+separate xxx_I2C objects, with the shrPort versions, etc. The results are
+summarized in the comments of kpdispfTest5.
+
+
+
