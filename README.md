@@ -5,9 +5,9 @@ sharing of I2C port expander IC. These port expander devices connect to the I2C
 bus (pins SCL, SDA, VCC, GND) and then provide 8 or 16 digital I/O bits and 
 freeing the arduino digital pins for other uses.
 
-The current version (2020) replaces an earlier start on this capability that was
-abandonded because it required modification of other libraries, rendering the
-modified versions incompatible with the base arduino. Some of the earlier files
+The current version (2020) replaces an earlier start on this I/O sharing capability
+that was abandonded because it required modification of other libraries, rendering
+the modified versions incompatible with the base arduino. Some of the earlier files
 are retained in the `history` folder
 
 To use the library functions, either download the individual library folders 
@@ -22,7 +22,7 @@ modified existing libraries. The expander port sharing libraries are:
 * `shrPort` - handling PCF8574 and PCF8575 devices (8 and 16 bit)
 * `shrPrta` - PCA9554/5 PCA9534/5/9 TCA6408/16 register compatible 8 and 16 bit 
 * `shrMC17` - handling MCP23017 16-bit
-* `I2Ccomm` - an empty definition class used by shrXXXX libraries
+* `I2Ccomm` - an empty definition class used by `shrXXXX` libraries
 
 The bridging functions are:
 
@@ -35,8 +35,8 @@ The modified existing library:
 
 * `LiquidCrystal_I2C` - see README document in this version
 
-The purpose of this library development is similar to that of other libraries to
-allow I2C I/O posted elsewhere - for example
+The purpose of this library development is similar to that of other libraries posted
+ elsewhere that allow I2C I/O  - for example
  [`arduino_keypads`](https://github.com/joeyoung/arduino_keypads). The additional goal
 compared to those previous developments was to separate the I/O port control from
 the objects using the port. This arrangement has the minor advantage of not duplicating
@@ -64,7 +64,7 @@ prints them to the lcd and Serial, and pulses the backlight when the lcd line is
     Keypad_exp kpd( &prt, makeKeymap(keys), rowPins, colPins, ROWS, COLS); //Keypad initializers
     flashPin_exp pin7( &prt, 7, LOW, 250);     //create flashPin                
     LiquidCrystal_exp  lcd( &prt, 16, 2 );     //LiquidCrystal_exp 16 col, 2 rows
-      ...
+      ....
 	void setup() {
 		Serial.begin( 9600 );
 		while( !Serial ){ /*wait*/ }
@@ -79,7 +79,7 @@ prints them to the lcd and Serial, and pulses the backlight when the lcd line is
 		lcd.print( "Hi Joe exp" ); //lcd operations
 		lcd.setCursor( 0, 1 );
 		lcd.backlight( );
-
+			....
 ```
 
 
