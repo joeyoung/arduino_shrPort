@@ -1,0 +1,34 @@
+###########################################
+# Syntax Coloring Map For shrMC08
+###########################################
+
+###########################################
+# Datatypes (KEYWORD1)
+###########################################
+
+shrMC08	KEYWORD1
+
+###########################################
+# Library constants
+###########################################
+
+MCP23016	LITERAL1
+
+
+###########################################
+# Methods and Functions (KEYWORD2)
+###########################################
+
+pinState_set	KEYWORD2
+port_write	KEYWORD2
+begin	KEYWORD2
+iodir_read	KEYWORD2
+iodir_write	KEYWORD2
+
+# List of objects created in the example sketches.
+prt	KEYWORD3
+port	KEYWORD3
+myport	KEYWORD3
+prt1	KEYWORD3
+prt2	KEYWORD3
+

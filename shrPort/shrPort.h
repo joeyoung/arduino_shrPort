@@ -45,15 +45,16 @@ public:
 	shrPort( byte I2Caddress, byte width, TwoWire * awire = &Wire )
            { i2caddr = I2Caddress; i2cwidth = width; portDir = 0xffff; _jwire = awire; }
 
+	void begin( );
 	void pin_mode( byte pinNum, byte mode );
 	void pin_write( byte pinNum, boolean level );
 	int pin_read( byte pinNum );
 	// read initial value for pinState
 	word pinState_set( );
-	// write a whole byte or word (depending on the port expander chip) to i2c port
 	void port_write( word i2cportval );
-	word portDir_rd( );
-	void begin( );
+	// access functions for IODIR state copy
+	word iodir_read( );
+	void iodir_write( word iodir );
 
 
 private:

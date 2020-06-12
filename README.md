@@ -22,6 +22,8 @@ modified existing libraries. The expander port sharing libraries are:
 * `shrPort` - handling PCF8574 and PCF8575 devices (8 and 16 bit)
 * `shrPrta` - PCA9554/5 PCA9534/5/9 TCA6408/16 register compatible 8 and 16 bit 
 * `shrMC17` - handling MCP23017 16-bit
+* `shrMC16` - handling MCP23016 16-bit
+* `shrMC08` - handling MCP23008 8-bit
 * `I2Ccomm` - an empty definition class used by `shrXXXX` libraries
 
 The bridging functions are:
@@ -30,10 +32,12 @@ The bridging functions are:
 * `LiquidCrystal_exp` - extends (modified) LiquidCrystal_I2C
 * `flashPin_exp` - non-blocking timers to repeatedly pulse individual pins
 * `LcdBarCentreZero_exp` - uses LiquidCrystal_exp to draw bargraph on character displays
+* `Rotary_exp` - for rotary encoders connected to expander pins
 
-The modified existing library:
+The modified existing libraries:
 
 * `LiquidCrystal_I2C` - see README document in this version
+* `Rotary` - see README in this version
 
 The purpose of this library development is similar to that of other libraries posted
  elsewhere that allow I2C I/O  - for example
@@ -45,12 +49,13 @@ with the libraries in `arduino_keypads`. More importantly, only one set of I/O
 functions controls the state of the I/O port chip registers thus minimizing the
 possibility of different objects interfering with one another.
 
-Excerpts from an example sketch 'kpdispf5' illustrate how to use these libraries. 
+Excerpts from an example sketch 'kpdispf5' illustrate how to use these libraries. See
+also the API document which describes the functions made available with the libraries.
 The example system has a Keypad, 16 X 2 LCD display and flashPin to pulse the
 display backlight. Not shown in the excerpt, the sketch gets keys from the keypad,
 prints them to the lcd and Serial, and pulses the backlight when the lcd line is filled.
 
-``` C++
+```cpp
 
     #include <shrMC17.h> 
     #include <Keypad_exp.h>
@@ -62,7 +67,7 @@ prints them to the lcd and Serial, and pulses the backlight when the lcd line is
     TwoWire * jwire;    // to test passing reference to an alternate I2C port (MKR ZERO, eg)
     shrMC17 prt( I2CADDR, MCP23017, jwire );   //create shrPort object with MCP expander
     Keypad_exp kpd( &prt, makeKeymap(keys), rowPins, colPins, ROWS, COLS); //Keypad initializers
-    flashPin_exp pin7( &prt, 7, LOW, 250);     //create flashPin                
+    flashPin_exp pin7( &prt, 7, LOW, 250);     //create flashPin
     LiquidCrystal_exp  lcd( &prt, 16, 2 );     //LiquidCrystal_exp 16 col, 2 rows
       ....
 	void setup() {

@@ -4,6 +4,7 @@
 
 // revised: Jan 14/14 - using version 2? with resting level specified
 //          Apr 26/20 - revised library, illustrate flashRep repeating flash
+//          May 13/20 - revised shrPort lib
 
 // Illustrate the use of non-blocking timers in the flashPin library
 // to flash arduino pins.
@@ -13,6 +14,9 @@
 // The pin12 object is constructed specifying all parameters.
 
 #include <flashPin.h>
+#include <shrPort.h>
+
+shrPort prt( 0x20, PCF8575 );
 
 //flashPin pin13;            // use default parameters: pin 13, 250 msec
 flashPin pin12( 9, LOW, 100 );

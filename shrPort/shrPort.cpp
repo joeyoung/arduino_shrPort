@@ -87,7 +87,11 @@ word shrPort::pinState_set( ) {
 } // set_pinState( )
 
 // debug
-word shrPort::portDir_rd( ) {
+word shrPort::iodir_read( ) {
 	return portDir;
-} // portDir_rd( )
+} // iodir_rd( )
+
+void shrPort::iodir_write( word portdir ) {
+	portDir = portdir;
+} // iodir_write( )
 

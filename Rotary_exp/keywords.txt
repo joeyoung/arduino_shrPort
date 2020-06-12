@@ -1,0 +1,28 @@
+###########################################
+# Syntax Coloring Map For Rotary_exp
+###########################################
+
+###########################################
+# Datatypes (KEYWORD1)
+###########################################
+
+Rotary_exp	KEYWORD1
+Rotary	KEYWORD1
+
+###########################################
+# Methods and Functions (KEYWORD2)
+###########################################
+
+process	KEYWORD2
+
+
+###########################################
+# objects created in the example sketches.
+###########################################
+
+rotary	KEYWORD3
+r	KEYWORD3
+enc	KEYWORD3
+enc1	KEYWORD3
+enc2	KEYWORD3
+
