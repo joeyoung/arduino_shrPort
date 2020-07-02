@@ -1,7 +1,7 @@
 Regarding examples in shrPort library. 
 
 June 8, 2020  G. D. (Joe) Young <jyoung@islandnet.com>
-
+June 22, 2020   add note about jrotaryshr.
 
 As there are a number of similarly-named examples, this note attempts to give
 some rationale for each:
@@ -34,7 +34,13 @@ Multikey_exp_encB - As above, but with only the encoder being scanned. The
                remaining pins can be used for a 2 X 4 keypad - as illustrated
                with kpdispftest6.
 
-testshrPort - example from earlier development, shows the bit and port i/o
+testshrPort - Example from earlier development, shows the bit and port i/o
               functions provided by shrPort for PCF8574 and PCF8575 expanders.
+
+jrotaryshr -  Example of using shrPort alone, and of using the interrupt output
+              from the port expander. Has rudimentary debouncing by waiting for
+              the debounce time after first interrupt before reading the port
+              pins. Also uses the pinChangeInterrupt library to permit assigning
+              the expander port interrupt to any pin.
 
 

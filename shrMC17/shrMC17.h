@@ -3,6 +3,7 @@
  * created: May 19, 2020  Copyright (C) G. D. (Joe) Young <jyoung@islandnet.com>
  *
  * revised: May 22/20 - named shrMC17 from shrPort. shrPort is for PCF8574/5
+ *          Jun 30/20 - add register read, write. ver 1.5
  *
  * The shrPort libraries provide a set of I/O functions similar in function to the
  * arduino digitalRead, digitalWrite, pinMode, etc., except operating at the pins of a
@@ -33,9 +34,24 @@
 #include "Wire.h"
 #include "Arduino.h"
 #include "I2Ccomm.h"
+#include "MC17bitDef.h"
 
 // define possible device types that can be driven 
 #define MCP23017 1
+#define GPIOA 0x12		//MCP23017 GPIO reg
+#define GPIOB 0x13		//MCP23017 GPIO reg
+#define IODIRA 0x00		//MCP23017 I/O direction register
+#define IODIRB 0x01		//MCP23017 I/O direction register
+#define IOCON 0x0a		//MCP23017 I/O configuration register
+#define GPPUA 0x0c		//MCP23017 pullup resistors control
+#define IPOLA 0x02		//interrupt polarity
+#define GPINTENA 0x04	//interrupt enable bits
+#define DEFVALA	0x06	//default values for int change
+#define INTCONA 0x08	//interrupt control
+#define INTFA 0x0e		//interrupt flags
+#define INTCAPA 0x10	//interrupt capture
+#define OLATA 0x14		//output latch
+
 
 class shrMC17 : public I2Ccomm {
 public:
@@ -55,6 +71,8 @@ public:
 	// access functions for IODIR state copy
 	word iodir_read( );
 	void iodir_write( word iodir );
+	word reg_read( byte reg );
+	void reg_write( byte reg, word val );
 
 private:
     // I2C device address

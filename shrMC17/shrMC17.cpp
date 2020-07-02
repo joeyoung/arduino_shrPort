@@ -2,7 +2,7 @@
  *
  * created: May 19, 2020  Copyright (C) G. D. (Joe) Young <jyoung@islandnet.com>
  *
- * revised:
+ * revised: Jun 30/20 - add register write, read, use in other functions. ver 1.5.
  *
  * The shrPort libraries provide a set of I/O functions similar in function to the
  * arduino digitalRead, digitalWrite, pinMode, etc., except operating at the pins of a
@@ -30,13 +30,6 @@
 
 #include "shrMC17.h"
 
-#define GPIOA 0x12		//MCP23017 GPIO reg
-#define GPIOB 0x13		//MCP23017 GPIO reg
-#define IODIRA 0x00		//MCP23017 I/O direction register
-#define IODIRB 0x01		//MCP23017 I/O direction register
-#define IOCON 0x0a		//MCP23017 I/O configuration register
-#define GPPUA 0x0c		//MCP23017 pullup resistors control
-
 
 // Initialize MC17
 void shrMC17::begin(void) {
@@ -56,21 +49,9 @@ void shrMC17::_begin( void ) {
 	_wire->write( IOCON ); // same as when reset
 	_wire->write( iocon );
 	_wire->endTransmission( );
-	_wire->beginTransmission( (int)i2caddr );
-	_wire->write( GPPUA ); // enable pullups on all inputs
-	_wire->write( 0xff );
-	_wire->write( 0xff );
-	_wire->endTransmission( );
-	_wire->beginTransmission( (int)i2caddr );
-	_wire->write( IODIRA ); // setup port direction - all inputs to start
-	_wire->write( lowByte( iodirec ) );
-	_wire->write( highByte( iodirec ) );
-	_wire->endTransmission( );
-	_wire->beginTransmission( (int)i2caddr );
-	_wire->write( GPIOA );	//point register pointer to gpio reg
-	_wire->write( lowByte(iodirec) ); // make o/p latch agree with pulled-up pins
-	_wire->write( highByte(iodirec) );
-	_wire->endTransmission( );
+	reg_write( GPPUA, 0xffff );
+	reg_write( IODIRA, iodirec );
+	reg_write( GPIOA, iodirec );
 } // _begin( )
 
 // individual pin setup - modify pin bit in IODIR reg.
@@ -81,11 +62,7 @@ void shrMC17::pin_mode(byte pinNum, byte mode) {
 	} else {
 		iodir_state |= mask;
 	} // if mode
-	_wire->beginTransmission((int)i2caddr);
-	_wire->write( IODIRA );
-	_wire->write( lowByte( iodir_state ) );
-	_wire->write( highByte( iodir_state ) );
-	_wire->endTransmission();
+	reg_write( IODIRA, iodir_state );
 } // pin_mode( )
 
 void shrMC17::pin_write(byte pinNum, boolean level) {
@@ -95,45 +72,28 @@ void shrMC17::pin_write(byte pinNum, boolean level) {
 	} else {
 		pinState &= ~mask;
 	}
-	port_write( pinState );
+	reg_write( GPIOA, pinState );
 } // MC17xWrite( )
 
 
 int shrMC17::pin_read(byte pinNum) {
-	_wire->beginTransmission((int)i2caddr);
-	_wire->write( GPIOA );
-	_wire->endTransmission( );
 	word mask = 0x1<<pinNum;
-	_wire->requestFrom((int)i2caddr, 2);
-	word pinVal = 0;
-	pinVal = _wire->read( );
-	pinVal |= ( _wire->read( )<<8 );
+	word pinVal = reg_read( GPIOA );
 	pinVal &= mask;
 	if( pinVal == mask ) {
 		return 1;
 	} else {
 		return 0;
 	}
-}
+} // pin_read( )
 
 void shrMC17::port_write( word i2cportval ) {
-// MCP23017 requires a register address on each write
-	_wire->beginTransmission((int)i2caddr);
-	_wire->write( GPIOA );
-	_wire->write( lowByte( i2cportval ) );
-	_wire->write( highByte( i2cportval ) );
-	_wire->endTransmission();
+	reg_write( GPIOA, i2cportval );
 	pinState = i2cportval;
 } // port_write( )
 
 word shrMC17::pinState_set( ) {
-	_wire->beginTransmission((int)i2caddr);
-	_wire->write( GPIOA );
-	_wire->endTransmission( );
-	_wire->requestFrom( (int)i2caddr, 2 );
-	pinState = 0;
-	pinState = _wire->read( );
-	pinState |= (_wire->read( )<<8);
+	pinState = reg_read( GPIOA );
 	return pinState;
 } // set_pinState( )
 
@@ -144,11 +104,26 @@ word shrMC17::iodir_read( ) {
 
 void shrMC17::iodir_write( word iodir ) {
 	iodir_state = iodir;
-	_wire->beginTransmission((int)i2caddr);   // read current IODIR reg 
-	_wire->write( IODIRA );
-	_wire->write( lowByte( iodir_state ) );
-	_wire->write( highByte( iodir_state ) );
-	_wire->endTransmission();
+	reg_write( IODIRA, iodir_state );
 } // iodir_write( )
 
+// version 1.5 register read 
+word shrMC17::reg_read( byte reg ) {
+	_wire->beginTransmission((int)i2caddr);
+	_wire->write( reg );
+	_wire->endTransmission( );
+	_wire->requestFrom( (int)i2caddr, 2 );
+	word rval = _wire->read( );
+	rval |= (_wire->read( )<<8);
+	return rval;
+} // reg_read( )
+
+// version 1.5 register write
+void shrMC17::reg_write( byte reg, word regval ) {
+	_wire->beginTransmission((int)i2caddr);   // read current IODIR reg 
+	_wire->write( reg );
+	_wire->write( lowByte( regval ) );
+	_wire->write( highByte( regval ) );
+	_wire->endTransmission();
+} // reg_write( )
 
