@@ -1,0 +1,40 @@
+Note regarding encoder signal conditioning
+
+July 6/20  G. D. (Joe) Young <jyoung@islandnet.com>
+
+
+For simple mechanical rotary encoders such as the Bournes PEC11, the A and B
+signals are produced by a pair (or more) of contacts sliding across a pattern 
+of metal areas separated by insulating space areas. As a consequence of this 
+action, the A and B output signals may be corrupted by momentary make and break
+of the sliding contact, which may become worse with age-accumulated wear, dirt,
+etc. This also means that an erroneous code can occur at any time during a 
+cycle of rotation, and not just near the edge transitions, and thus really 
+should not be called contact bounce in the usual sense of a switch operation.
+
+Given the nature of the noisy signal, the concept employed in the Rotary 
+library--state table driven--which essentially ignores invalid states is likely
+near best practice. By way of contrast, the 'debounce' method employed in my
+examples--jrotaryshra, say--which just waits for a msec or so before reading 
+the encoder state, will not be immune from these mid-state errors.
+
+The PEC11 rotary encoder datasheet has a recommended signal conditioning 
+circuit consisting of a pair of resistors and a capacitor. As shown, this
+circuit has time constant 10K x .01uF for falling edges, and twice that for
+the rise. Thus the filter is more effective against contacts lifting off the
+closed state. In the schematics illustrating using the shrPort expander's
+interrupt capability, this altered filtering further exaggerates the 
+difference in time constant, and also allows the processor or expander input
+pullup to be drawn low enough to register as a LOW logic level. Also, this 
+filtering with a resistance always in series with the closed contact is kinder
+to the encoder contacts--by limiting the capacitor discharge current--than 
+simply connecting a capacitor across the contact would be. With the circuit
+recommended by the manufacturer the current handled by the encoder contacts
+varies from a maximum of 5V/5K = 1 mA at initial closure to 0.5 mA when the
+capacitor is fully discharged. With the modified circuit it depends a bit on
+the input pullup value, but will be approximately 1 mA at initial closure and
+decline to about the pullup current plus 0.1 mA from the 51K.
+
+
+
+

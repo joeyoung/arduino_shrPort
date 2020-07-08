@@ -21,6 +21,14 @@ PCA9535	LITERAL1
 TCA6408	LITERAL1
 TCA6416	LITERAL1
 
+# register names
+IREG	LITERAL1
+OREG	LITERAL1
+VREG	LITERAL1
+CREG	LITERAL1
+IODIR	LITERAL1
+
+
 ###########################################
 # Methods and Functions (KEYWORD2)
 ###########################################
@@ -33,6 +41,8 @@ port_write	KEYWORD2
 iodir_read	KEYWORD2
 iodir_write	KEYWORD2
 begin	KEYWORD2
+reg_read	KEYWORD2
+reg_write	KEYWORD2
 
 
 ###########################################

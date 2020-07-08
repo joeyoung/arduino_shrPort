@@ -1,8 +1,8 @@
-// shrPrta.cpp - class implementation for shareable, I2C, i/o expansion port
+// shrPrta.h - class definition for shareable, I2C, i/o expansion port
 //
 // created: May 26, 2020 Copyright (C) G. D. (Joe) Young <jyoung@islandnet.com>
 //
-// revised: 
+// revised: Jul  7/20 - add reg_write, reg_read
 //
 //
 // This version of the I2C port i/o should be cleaner in implementation than
@@ -42,6 +42,13 @@
 #define TCA6408 1
 #define TCA6416 2
 
+// port register names
+#define IREG 0x00	// input port location
+#define OREG 0x01	// output port
+#define VREG 0x02	// polarity inversion
+#define CREG 0x03	// configuration reg - IODIR
+#define IODIR 0x03	// common alias for config
+
 
 class shrPrta : public I2Ccomm {
 public:
@@ -62,6 +69,8 @@ public:
 	// access functions for IODIR state copy
 	word iodir_read( );
 	void iodir_write( word iodir );
+	void reg_write( byte reg, word i2cportval );
+	word reg_read( byte reg );
 
 private:
     // I2C device address
@@ -74,7 +83,6 @@ private:
 	word pinState;
 	word iodir_state;    // copy of IODIR register
 	void _begin( void );
-	void p_write( word i2cportval, byte reg );
 };
 
 
