@@ -3,6 +3,7 @@
 // created: May 26, 2020 Copyright (C) G. D. (Joe) Young <jyoung@islandnet.com>
 //
 // revised: Jul  7/20 - add reg_write, reg_read
+//          Mar 17/22 - correct reg_write arguments in _begin( ) - Thanks nicolas buis
 //
 //
 // This version of the I2C port i/o should be cleaner in implementation than

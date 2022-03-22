@@ -3,6 +3,7 @@
 // created: May 26, 2020 Copyright (C) G. D. (Joe) Young <jyoung@islandnet.com>
 //
 // revised: Jul  8/20 - add reg_write, reg_read
+//          Mar 17/22 - correct reg_write arguments in _begin( ) - Thanks nicolas buis
 //
 //
 // This version of the I2C port i/o should be cleaner in implementation than
@@ -37,9 +38,9 @@ void shrPrta::begin(void) {
 
 // configure port registers as if just power-on reset
 void shrPrta::_begin( ) {
-	reg_write( 0xffff, OREG );
-	reg_write( 0x0000, VREG );
-	reg_write( 0xffff, IODIR );
+	reg_write( OREG, 0xffff );
+	reg_write( VREG, 0x0000 );
+	reg_write( IODIR, 0xffff );
 	iodir_state = 0xffff;
 	pinState = pinState_set( );
 } // _begin( )
